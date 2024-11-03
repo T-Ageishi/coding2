@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, useState, ChangeEvent } from "react";
 import Label from "../../atoms/label/label";
-import styles from "./styles.module.css";
+import styles from "./checkboxes.module.css";
 
 /**
  * Render hooks

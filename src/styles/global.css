@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 /*通常時のテーマ*/
-.light {
+:root {
     --md-sys-color-primary: rgb(90 88 145);
     --md-sys-color-surface-tint: rgb(90 88 145);
     --md-sys-color-on-primary: rgb(255 255 255);
@@ -55,7 +55,7 @@
 }
 
 /*ダークモード使用時のテーマ*/
-.dark {
+:root.dark {
     --md-sys-color-primary: rgb(196 192 255);
     --md-sys-color-surface-tint: rgb(196 192 255);
     --md-sys-color-on-primary: rgb(44 41 96);
