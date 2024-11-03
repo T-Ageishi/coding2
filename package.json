@@ -1,0 +1,46 @@
+{
+  "name": "coding2",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "volta": {
+    "node": "22.11.0",
+    "npm": "10.9.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "next": "^14.2.16",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.13.3"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.2",
+    "@storybook/addon-essentials": "^8.4.1",
+    "@storybook/addon-interactions": "^8.4.1",
+    "@storybook/addon-onboarding": "^8.4.1",
+    "@storybook/blocks": "^8.4.1",
+    "@storybook/nextjs": "^8.4.1",
+    "@storybook/react": "^8.4.1",
+    "@storybook/test": "^8.4.1",
+    "@types/node": "22.8.6",
+    "@types/react": "18.3.12",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.0.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-storybook": "^0.10.2",
+    "prettier": "3.3.3",
+    "storybook": "^8.4.1",
+    "typescript": "5.6.3"
+  }
+}
