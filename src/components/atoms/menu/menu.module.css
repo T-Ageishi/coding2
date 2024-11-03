@@ -1,0 +1,46 @@
+.container {
+    display: block;
+    position: absolute;
+    border-radius: 4px;
+    padding: 8px 0;
+    z-index: 10;
+    box-shadow: 0 0 4px 0 var(--md-sys-color-shadow);
+    background-color: var(--md-sys-color-surface-container-lowest);
+
+    visibility: hidden;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation-duration: 100ms;
+
+    &.open {
+        animation-name: open;
+    }
+
+    &.close {
+        animation-name: close;
+    }
+}
+
+@keyframes open {
+    from {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    to {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@keyframes close {
+    from {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    to {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
