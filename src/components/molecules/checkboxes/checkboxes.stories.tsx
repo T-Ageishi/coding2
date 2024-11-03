@@ -1,5 +1,5 @@
 import type { StoryObj } from "@storybook/react";
-import useCheckboxes from "./checkboxes";
+import { useCheckboxes } from "./checkboxes";
 import { CSSProperties } from "react";
 
 const meta = {};

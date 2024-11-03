@@ -1,11 +1,22 @@
-import { ComponentPropsWithoutRef, useState, ChangeEvent } from "react";
+import {
+	ComponentPropsWithoutRef,
+	useState,
+	ChangeEvent,
+	FC,
+	ReactNode,
+} from "react";
 import Label from "../../atoms/label/label";
 import styles from "./checkboxes.module.css";
 
 /**
  * Render hooks
  */
-export default function useCheckboxes({ propsCollection }: CheckboxesProps) {
+export const useCheckboxes = ({
+	propsCollection,
+}: CheckboxesProps): {
+	Checkboxes: ReactNode;
+	checkList: CheckList;
+} => {
 	const [checkList, setCheckList] = useState<CheckList>(
 		makeInitialState({ propsCollection })
 	);
@@ -29,14 +40,14 @@ export default function useCheckboxes({ propsCollection }: CheckboxesProps) {
 	);
 
 	return { Checkboxes: checkboxes, checkList };
-}
+};
 
 // region コンポーネント
 /**
  * コンポーネント
  * チェックボックス 複数
  */
-function Checkboxes({ propsCollection }: CheckboxesProps) {
+const Checkboxes: FC<CheckboxesProps> = ({ propsCollection }) => {
 	return (
 		<>
 			{propsCollection.map((props) => (
@@ -46,31 +57,32 @@ function Checkboxes({ propsCollection }: CheckboxesProps) {
 			))}
 		</>
 	);
-}
+};
 
 /**
  * コンポーネント
  * チェックボックス 単一
  */
-function Checkbox(props: CheckboxProps) {
+const Checkbox: FC<CheckboxProps> = (props) => {
 	return <input type="checkbox" className={styles["input"]} {...props} />;
-}
+};
 
 // endregion
 
 // region 関数
-function makeInitialState({ propsCollection }: CheckboxesProps) {
+const makeInitialState = ({ propsCollection }: CheckboxesProps): CheckList => {
 	const result: CheckList = {};
 	propsCollection.forEach((props) => {
 		result[props.value] = props.checked ?? false;
 	});
 	return result;
-}
+};
 
 // endregion
 
 // region 型定義
 /**
+ * props
  * チェックボックス 複数
  */
 export type CheckboxesProps = {
