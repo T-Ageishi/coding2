@@ -7,16 +7,15 @@ export default meta;
 
 type StoryWithHooks = StoryObj<typeof useCheckboxes>;
 const CheckboxWithHooks = () => {
-	const { Checkboxes } = useCheckboxes({
-		propsCollection: [...Array(20)].map((_, i) => {
-			return {
-				label: `選択肢 ${i + 1}`,
-				value: `${i + 1}`,
-			};
-		}),
+	const checkboxesProps = [...Array(20)].map((_, i) => {
+		return {
+			label: `選択肢 ${i + 1}`,
+			value: `${i + 1}`,
+		};
 	});
 
-	return <>{Checkboxes}</>;
+	const { RenderCheckboxes } = useCheckboxes(checkboxesProps.length);
+	return <RenderCheckboxes propsCollection={checkboxesProps} />;
 };
 
 export const Default: StoryWithHooks = {
