@@ -22,7 +22,7 @@ export default function MainPage({
 	return (
 		<MainTemplate>
 			<div>
-				<Rend,erDropdown
+				<RenderDropdown
 					value={value}
 					optionPropsCollection={chartOptionPropsCollection}
 				/>
