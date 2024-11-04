@@ -56,20 +56,24 @@ const Dropdown: FC<DropdownProps> = ({
 				</div>
 			</div>
 
-			{/* 選択肢部分 */}
-			{createPortal(
-				<RenderMenu anchorElement={ref.current}>
-					{optionPropsCollection.map((p) => (
-						<Option
-							key={p.value}
-							{...p}
-							onClick={onClickOption}
-							className={value === p.value ? styles["active"] : ""}
-						/>
-					))}
-				</RenderMenu>,
-				document.body
-			)}
+			{
+				//選択肢部分（document is not definedエラー回避）
+				typeof window !== "undefined"
+					? createPortal(
+							<RenderMenu anchorElement={ref.current}>
+								{optionPropsCollection.map((p) => (
+									<Option
+										key={p.value}
+										{...p}
+										onClick={onClickOption}
+										className={value === p.value ? styles["active"] : ""}
+									/>
+								))}
+							</RenderMenu>,
+							document.body
+						)
+					: null
+			}
 		</>
 	);
 };
