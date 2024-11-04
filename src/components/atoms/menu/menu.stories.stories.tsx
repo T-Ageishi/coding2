@@ -16,7 +16,6 @@ export const Default: Story = {
 		return (
 			<>
 				<div>
-					<div style={{ height: "20px" }}>表示位置の基準</div>
 					<button
 						ref={ref}
 						style={{
