@@ -18,7 +18,7 @@ export const useMenu = () => {
 		);
 	};
 
-	return { RenderMenu, setIsOpen };
+	return { RenderMenu, isOpen, setIsOpen };
 };
 
 // region コンポーネント
@@ -61,7 +61,7 @@ const Menu: FC<MenuProps> = ({
 	return (
 		<div
 			ref={ref}
-			className={`${styles["container"]} ${isOpen ? styles["open"] : styles["close"]}`}
+			className={`${styles["container"]} ${isOpen ? styles["open"] : ""}`}
 		>
 			{children}
 		</div>
