@@ -1,17 +1,15 @@
 .container {
-    display: block;
     position: absolute;
-    border-radius: 4px;
-    padding: 8px 0;
     z-index: 10;
-    box-shadow: 0 0 4px 0 var(--md-sys-color-shadow);
-    background-color: var(--md-sys-color-surface-container-lowest);
-
+    display: block;
     visibility: hidden;
+    padding: 8px 0;
+    animation-duration: 1000ms;
     opacity: 0;
+    border-radius: 4px;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    box-shadow: 0 0 4px 0 var(--md-sys-color-shadow);
     animation-fill-mode: forwards;
-    animation-duration: 100ms;
-
     &.open {
         animation-name: open;
     }
