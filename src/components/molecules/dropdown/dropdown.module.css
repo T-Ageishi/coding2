@@ -1,0 +1,56 @@
+/* select */
+.container {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: solid 1px var(--md-sys-color-outline);
+
+    &.open {
+        .icon {
+            rotate: 180deg;
+        }
+    }
+}
+
+.labelWrapper {
+    overflow: hidden;
+    flex-grow: 1;
+    text-overflow: ellipsis;
+}
+
+.label {
+    white-space: nowrap;
+}
+
+.iconWrapper {
+    flex-shrink: 0;
+}
+
+.icon {
+    animation-duration: 100ms;
+}
+
+/* 選択肢 */
+.optionContainer {
+    padding: 8px 8px;
+    cursor: pointer;
+}
+
+.optionContainer:hover {
+    background-color: var(--md-sys-color-surface-container);
+}
+
+.optionLabelWrapper {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.optionLabel {
+    white-space: nowrap;
+}
+
+.optionContainer.active {
+    background-color: var(--md-sys-color-secondary-container);
+}
