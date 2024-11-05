@@ -2,6 +2,7 @@ import { OptionProps } from "../../components/molecules/dropdown/dropdown";
 
 /**
  * グラフの選択肢
+ * @@todo 0-3にする
  */
 export const getChartOptions: () => Array<OptionProps> = () => {
 	return [
