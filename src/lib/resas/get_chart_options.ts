@@ -1,4 +1,4 @@
-import { OptionProps } from "../components/molecules/dropdown/dropdown";
+import { OptionProps } from "../../components/molecules/dropdown/dropdown";
 
 /**
  * グラフの選択肢

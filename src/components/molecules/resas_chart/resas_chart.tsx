@@ -1,6 +1,6 @@
 import { FC } from "react";
 import * as Recharts from "recharts";
-import { PrefCode } from "../../../lib/fetch_prefectures";
+import { PrefCode } from "../../../lib/resas/fetch_prefectures";
 
 // region コンポーネント
 /**

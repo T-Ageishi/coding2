@@ -1,5 +1,5 @@
-import { PrefCode, Prefecture } from "../../../lib/fetch_prefectures";
-import { PopulationComposition } from "../../../lib/fetch_population_composition";
+import { PrefCode, Prefecture } from "../../../lib/resas/fetch_prefectures";
+import { PopulationComposition } from "../../../lib/resas/fetch_population_composition";
 import { MainTemplate } from "../../templates/main/main_template";
 import { FC } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";
@@ -9,7 +9,7 @@ import {
 	LineProps,
 	ResasChart,
 } from "../../molecules/resas_chart/resas_chart";
-import { getChartOptions } from "../../../lib/get_chart_options";
+import { getChartOptions } from "../../../lib/resas/get_chart_options";
 
 /**
  * メインページ
