@@ -14,6 +14,6 @@ export async function fetchPopulationComposition(prefCode: string | number) {
 		const json = await data.json();
 		return json.result.data;
 	} catch (e) {
-		throw new Error("データ取得中のエラー");
+		throw new Error(e.message ?? "データ取得中のエラー");
 	}
 }

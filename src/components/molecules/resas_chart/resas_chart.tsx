@@ -46,16 +46,17 @@ export type ChartType = "1" | "2" | "3" | "4";
 
 /**
  * 都道府県コード
+ * @@todo 型を作る
  * https://zenn.dev/pokotyan/articles/fd47f277ed80c0
  */
-const codes = [...Array(47)].map((_, i) => String(i + 1));
-export type PrefCodes = (typeof codes)[number];
+// const codes = [...Array(47)].map((_, i) => String(i + 1));
+export type PrefCode = string;
 
 /**
  * Line Chartのprops
  */
 export type LineProps = {
-	dataKey: PrefCodes;
+	dataKey: PrefCode;
 	name: string;
 };
 
