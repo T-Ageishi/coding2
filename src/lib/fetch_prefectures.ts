@@ -16,8 +16,16 @@ export async function fetchPrefectures(): Promise<Array<Prefecture>> {
 
 /**
  * 都道府県データ
+ * @@todo 定義箇所を調整する
  */
 export type Prefecture = {
-	prefCode: number;
+	prefCode: PrefCode;
 	prefName: string;
 };
+
+/**
+ * 都道府県コード
+ * @@todo 型を調整する
+ * @@todo 定義箇所を調整する
+ */
+export type PrefCode = number | string;

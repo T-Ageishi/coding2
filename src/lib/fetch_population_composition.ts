@@ -1,7 +1,7 @@
 /**
  * 人口構成データを取得
  */
-export async function fetchPopulationComposition(
+export async function fetchPopulationCompositions(
 	prefCode: string | number
 ): Promise<Array<PopulationComposition>> {
 	try {

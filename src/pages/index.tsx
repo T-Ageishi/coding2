@@ -3,18 +3,21 @@ import { useDropdown } from "../components/molecules/dropdown/dropdown";
 import { GetStaticProps } from "next";
 import { useCheckboxes } from "../components/molecules/checkboxes/checkboxes";
 import { fetchPrefectures } from "../lib/fetch_prefectures";
-import { fetchPopulationComposition } from "../lib/fetch_population_composition";
+import { fetchPopulationCompositions } from "../lib/fetch_population_composition";
 import {
 	ChartData,
 	LineProps,
 	ResasChart,
 } from "../components/molecules/resas_chart/resas_chart";
 import { getChartOptions } from "../lib/get_chart_options";
-
-// @@todo リファクタリング
+import {
+	MainPageProps,
+	PopulationCompositionMap,
+} from "../components/pages/main/main_page";
 
 /**
  * メインページ
+ * @@todo リファクタリング
  */
 export default function MainPage({ prefData, populationComposition }) {
 	const { RenderDropdown, value } = useDropdown();
@@ -92,31 +95,27 @@ export default function MainPage({ prefData, populationComposition }) {
 }
 
 export const getStaticProps = (async () => {
-	//チェックボックスの選択肢
+	//都道府県データ
 	const prefectures = await fetchPrefectures();
-	const prefData = prefectures.map((p) => {
-		return {
-			label: p.prefName,
-			value: p.prefCode,
-		};
-	});
 
-	//グラフ用の全データ
-	const populationComposition = [];
+	//人口構成データ
+	const populationCompositionMap: PopulationCompositionMap = new Map();
 	for await (const { prefCode } of prefectures) {
-		const chartData = await fetchPopulationComposition(prefCode);
+		const populationCompositions = await fetchPopulationCompositions(prefCode);
+		populationCompositionMap.set(prefCode, populationCompositions);
+
+		//1秒あたり5リクエストまでの制限があるため待機
 		new Promise((resolve) => {
 			setTimeout(() => {
 				resolve(1);
 			}, 200);
 		});
-		populationComposition[prefCode] = chartData;
 	}
 
 	return {
 		props: {
-			prefData,
-			populationComposition,
+			prefectures,
+			populationCompositionMap,
 		},
 	};
-}) satisfies GetStaticProps<{}>;
+}) satisfies GetStaticProps<MainPageProps>;

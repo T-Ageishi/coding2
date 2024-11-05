@@ -1,5 +1,6 @@
 import { FC } from "react";
 import * as Recharts from "recharts";
+import { PrefCode } from "../../../lib/fetch_prefectures";
 
 // region コンポーネント
 /**
@@ -43,14 +44,6 @@ export type ResasChartProps = {
  * 4: 老年人口
  */
 export type ChartType = "1" | "2" | "3" | "4";
-
-/**
- * 都道府県コード
- * @@todo 型を作る
- * https://zenn.dev/pokotyan/articles/fd47f277ed80c0
- */
-// const codes = [...Array(47)].map((_, i) => String(i + 1));
-export type PrefCode = string;
 
 /**
  * Line Chartのprops
