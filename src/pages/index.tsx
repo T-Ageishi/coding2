@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
-import { fetchPrefectures } from "../lib/resas";
-import { fetchPopulationCompositions } from "../lib/resas";
+import { fetchPrefectures, fetchPopulationCompositions } from "../lib/resas";
+import { Prefecture } from "../lib/resas/index.d";
 import {
 	MainPage,
 	MainPageProps,
@@ -25,7 +25,7 @@ export default function Main({
 
 export const getStaticProps = (async () => {
 	//都道府県データ
-	const prefectures = await fetchPrefectures();
+	const prefectures: Array<Prefecture> = await fetchPrefectures();
 
 	//人口構成データ
 	const pCM: PopulationCompositionMap = {};

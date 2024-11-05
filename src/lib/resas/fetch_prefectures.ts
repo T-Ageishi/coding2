@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { Prefecture } from "./index.d";
 
 /**
  * 都道府県データを取得する
@@ -13,19 +14,3 @@ export async function fetchPrefectures(): Promise<Array<Prefecture>> {
 
 	return data.result;
 }
-
-/**
- * 都道府県データ
- * @@todo 定義箇所を調整する
- */
-export type Prefecture = {
-	prefCode: PrefCode;
-	prefName: string;
-};
-
-/**
- * 都道府県コード
- * @@todo 型を調整する
- * @@todo 定義箇所を調整する
- */
-export type PrefCode = number | string;

@@ -1,3 +1,5 @@
+import { PopulationComposition } from "./index.d";
+
 /**
  * 人口構成データを取得
  */
@@ -19,19 +21,3 @@ export async function fetchPopulationCompositions(
 		throw new Error(e.message ?? "データ取得中のエラー");
 	}
 }
-
-/**
- * 人口構成データ1種類
- */
-export type PopulationComposition = {
-	label: string;
-	data: Array<AnnualData>;
-};
-
-/**
- * 各年のデータ
- */
-type AnnualData = {
-	year: number;
-	value: number;
-};

@@ -1,5 +1,8 @@
-import { PrefCode, Prefecture } from "../../../lib/resas/fetch_prefectures";
-import { PopulationComposition } from "../../../lib/resas/fetch_population_composition";
+import {
+	PrefCode,
+	Prefecture,
+	PopulationComposition,
+} from "../../../lib/resas/index.d";
 import { MainTemplate } from "../../templates/main/main_template";
 import { FC } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";

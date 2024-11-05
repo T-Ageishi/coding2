@@ -1,6 +1,6 @@
 import { FC } from "react";
 import * as Recharts from "recharts";
-import { PrefCode } from "../../../lib/resas/fetch_prefectures";
+import { PrefCode } from "../../../lib/resas/index.d";
 
 // region コンポーネント
 /**
@@ -35,15 +35,6 @@ export type ResasChartProps = {
 	linePropsCollection: Array<LineProps>;
 	chartDataCollection: Array<ChartData>;
 };
-
-/**
- * グラフの種類
- * 1: 総人口
- * 2: 年少人口
- * 3: 生産年齢人口
- * 4: 老年人口
- */
-export type ChartType = "1" | "2" | "3" | "4";
 
 /**
  * Line Chartのprops
