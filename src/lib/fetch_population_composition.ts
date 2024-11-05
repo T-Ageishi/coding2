@@ -1,7 +1,9 @@
 /**
  * 人口構成データを取得
  */
-export async function fetchPopulationComposition(prefCode: string | number) {
+export async function fetchPopulationComposition(
+	prefCode: string | number
+): Promise<Array<PopulationComposition>> {
 	try {
 		//@@todo エラーハンドリング
 		const data = await fetch(
@@ -17,3 +19,19 @@ export async function fetchPopulationComposition(prefCode: string | number) {
 		throw new Error(e.message ?? "データ取得中のエラー");
 	}
 }
+
+/**
+ * 人口構成データ1種類
+ */
+export type PopulationComposition = {
+	label: string;
+	data: Array<AnnualData>;
+};
+
+/**
+ * 各年のデータ
+ */
+type AnnualData = {
+	year: number;
+	value: number;
+};

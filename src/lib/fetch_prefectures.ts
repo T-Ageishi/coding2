@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 /**
  * 都道府県データを取得する
  */
-export async function fetchPrefectures(): Promise<PrefectureResponse> {
+export async function fetchPrefectures(): Promise<Array<Prefecture>> {
 	//@@todo 実装
 
 	//開発用
@@ -14,7 +14,10 @@ export async function fetchPrefectures(): Promise<PrefectureResponse> {
 	return data.result;
 }
 
-export type PrefectureResponse = Array<{
+/**
+ * 都道府県データ
+ */
+export type Prefecture = {
 	prefCode: number;
 	prefName: string;
-}>;
+};
