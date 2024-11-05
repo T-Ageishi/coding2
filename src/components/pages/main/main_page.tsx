@@ -1,30 +1,20 @@
-import {
-	PrefCode,
-	Prefecture,
-	PopulationComposition,
-} from "../../../lib/resas/index.d";
+import { PrefCode, Prefecture, PopulationComposition } from "../../../lib/resas/index.d";
 import { MainTemplate } from "../../templates/main/main_template";
 import { FC } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";
-import { useCheckboxes } from "../../molecules/checkboxes/checkboxes";
-import {
-	ChartData,
-	LineProps,
-	ResasChart,
-} from "../../molecules/resas_chart/resas_chart";
+import { CheckboxProps, useCheckboxes } from "../../molecules/checkboxes/checkboxes";
+import { ChartData, LineProps, ResasChart } from "../../molecules/resas_chart/resas_chart";
 import { getChartOptions } from "../../../lib/resas";
+import styles from "./main_page.module.css";
 
 /**
  * メインページ
- * @@todo 実装
  */
-export const MainPage: FC<MainPageProps> = ({
-	prefectures,
-	populationCompositionMap,
-}) => {
+export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
 	const { RenderDropdown, value } = useDropdown();
 	const { RenderCheckboxes, checkList } = useCheckboxes(prefectures.length);
 
+	//@@todo 処理を切り出す
 	const linePropsCollection: Array<LineProps> = [];
 	const chartDataCollection: Array<ChartData> = [];
 	if (value !== undefined && checkList.filter((v) => v).length > 0) {
@@ -61,39 +51,15 @@ export const MainPage: FC<MainPageProps> = ({
 
 	return (
 		<MainTemplate>
-			<div style={{ width: "100%" }}>
-				<RenderDropdown
-					value={value}
-					optionPropsCollection={getChartOptions()}
-				/>
+			<div className={styles["dropdownWrapper"]}>
+				<RenderDropdown value={value} optionPropsCollection={getChartOptions()} />
 			</div>
 
-			<div
-				style={{
-					width: "100%",
-					display: "flex",
-					alignItems: "center",
-					gap: "8px 16px",
-					flexWrap: "wrap",
-				}}
-			>
-				<RenderCheckboxes
-					propsCollection={prefectures.map((p) => ({
-						label: p.prefName,
-						value: String(p.prefCode),
-					}))}
-				/>
+			<div className={styles["checkboxesWrapper"]}>
+				<RenderCheckboxes propsCollection={makeCheckboxesProps(prefectures)} />
 			</div>
 
-			<div
-				style={{
-					width: "100%",
-					height: "300px",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-				}}
-			>
+			<div className={styles["chartWrapper"]}>
 				<ResasChart
 					linePropsCollection={linePropsCollection}
 					chartDataCollection={chartDataCollection}
@@ -102,6 +68,16 @@ export const MainPage: FC<MainPageProps> = ({
 		</MainTemplate>
 	);
 };
+
+/**
+ * チェックボックスのpropsを作る
+ */
+function makeCheckboxesProps(prefectures: Array<Prefecture>): Array<CheckboxProps> {
+	return prefectures.map((p) => ({
+		label: p.prefName,
+		value: String(p.prefCode),
+	}));
+}
 
 /**
  * props

@@ -1,0 +1,23 @@
+/* ドロップダウンのラッパー */
+.dropdownWrapper {
+    width: 100%;
+}
+
+/* チェックボックスのラッパー */
+.checkboxesWrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    column-gap: 16px;
+    row-gap: 8px;
+}
+
+/* グラフのラッパー */
+.chartWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 500px;
+}
