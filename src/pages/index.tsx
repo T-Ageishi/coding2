@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
-import { fetchPrefectures } from "../lib/resas/fetch_prefectures";
-import { fetchPopulationCompositions } from "../lib/resas/fetch_population_composition";
+import { fetchPrefectures } from "../lib/resas";
+import { fetchPopulationCompositions } from "../lib/resas";
 import {
 	MainPage,
 	MainPageProps,

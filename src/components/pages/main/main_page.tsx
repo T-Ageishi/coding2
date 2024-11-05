@@ -9,7 +9,7 @@ import {
 	LineProps,
 	ResasChart,
 } from "../../molecules/resas_chart/resas_chart";
-import { getChartOptions } from "../../../lib/resas/get_chart_options";
+import { getChartOptions } from "../../../lib/resas";
 
 /**
  * メインページ
