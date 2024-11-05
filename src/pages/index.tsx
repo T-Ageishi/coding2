@@ -6,11 +6,15 @@ import {
 	MainPageProps,
 	PopulationCompositionMap,
 } from "../components/pages/main/main_page";
+import { wait } from "../lib/wait";
 
 /**
  * メインページ
  */
-export default function Main({ prefectures, populationCompositionMap }) {
+export default function Main({
+	prefectures,
+	populationCompositionMap,
+}: MainPageProps) {
 	return (
 		<MainPage
 			prefectures={prefectures}
@@ -24,23 +28,18 @@ export const getStaticProps = (async () => {
 	const prefectures = await fetchPrefectures();
 
 	//人口構成データ
-	const populationCompositionMap: PopulationCompositionMap = {};
+	const pCM: PopulationCompositionMap = {};
 	for await (const { prefCode } of prefectures) {
-		populationCompositionMap[prefCode] =
-			await fetchPopulationCompositions(prefCode);
+		pCM[prefCode] = await fetchPopulationCompositions(prefCode);
 
 		//1秒あたり5リクエストまでの制限があるため待機
-		new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(1);
-			}, 200);
-		});
+		await wait(200);
 	}
 
 	return {
 		props: {
 			prefectures,
-			populationCompositionMap,
+			populationCompositionMap: pCM,
 		},
 	};
 }) satisfies GetStaticProps<MainPageProps>;
