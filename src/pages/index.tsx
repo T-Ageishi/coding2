@@ -1,8 +1,5 @@
 import { MainTemplate } from "../components/templates/main/main_template";
-import {
-	OptionProps,
-	useDropdown,
-} from "../components/molecules/dropdown/dropdown";
+import { useDropdown } from "../components/molecules/dropdown/dropdown";
 import { GetStaticProps } from "next";
 import { useCheckboxes } from "../components/molecules/checkboxes/checkboxes";
 import { fetchPrefectures } from "../lib/fetch_prefectures";
@@ -12,17 +9,14 @@ import {
 	LineProps,
 	ResasChart,
 } from "../components/molecules/resas_chart/resas_chart";
+import { getChartOptions } from "../lib/get_chart_options";
 
 // @@todo リファクタリング
 
 /**
  * メインページ
  */
-export default function MainPage({
-	chartOptionPropsCollection,
-	prefData,
-	populationComposition,
-}) {
+export default function MainPage({ prefData, populationComposition }) {
 	const { RenderDropdown, value } = useDropdown();
 	const { RenderCheckboxes, checkList } = useCheckboxes(prefData.length);
 
@@ -65,7 +59,7 @@ export default function MainPage({
 			<div>
 				<RenderDropdown
 					value={value}
-					optionPropsCollection={chartOptionPropsCollection}
+					optionPropsCollection={getChartOptions()}
 				/>
 			</div>
 
@@ -98,14 +92,6 @@ export default function MainPage({
 }
 
 export const getStaticProps = (async () => {
-	//プルダウンの選択肢
-	const chartOptionPropsCollection = [
-		{ label: "総人口", value: "1" },
-		{ label: "年少人口", value: "2" },
-		{ label: "生産年齢人口", value: "3" },
-		{ label: "老年人口", value: "4" },
-	];
-
 	//チェックボックスの選択肢
 	const prefectures = await fetchPrefectures();
 	const prefData = prefectures.map((p) => {
@@ -129,11 +115,8 @@ export const getStaticProps = (async () => {
 
 	return {
 		props: {
-			chartOptionPropsCollection,
 			prefData,
 			populationComposition,
 		},
 	};
-}) satisfies GetStaticProps<{
-	chartOptionPropsCollection: Array<OptionProps>;
-}>;
+}) satisfies GetStaticProps<{}>;
