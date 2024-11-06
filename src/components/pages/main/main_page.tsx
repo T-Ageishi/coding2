@@ -11,7 +11,7 @@ import styles from "./main_page.module.css";
  * メインページ
  */
 export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
-	const { RenderDropdown, value } = useDropdown();
+	const { RenderDropdown, value } = useDropdown("0"); //@@todo グラフの種類を定数にしておく
 	const { RenderCheckboxes, checkList } = useCheckboxes(prefectures.length);
 
 	return (

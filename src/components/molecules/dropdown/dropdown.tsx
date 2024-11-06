@@ -11,8 +11,8 @@ import { useMenu } from "../../atoms/menu/menu";
 import { createPortal } from "react-dom";
 import styles from "./dropdown.module.css";
 
-export const useDropdown = () => {
-	const [value, setValue] = useState<string | undefined>(undefined);
+export const useDropdown = (defaultValue: string | undefined = undefined) => {
+	const [value, setValue] = useState<string | undefined>(defaultValue);
 
 	const RenderDropdown: FC<Omit<DropdownProps, "setValue">> = (props) => {
 		return <Dropdown {...props} value={value} setValue={setValue} />;
@@ -22,11 +22,7 @@ export const useDropdown = () => {
 };
 
 //region コンポーネント
-const Dropdown: FC<DropdownProps> = ({
-	value = undefined,
-	setValue,
-	optionPropsCollection,
-}) => {
+const Dropdown: FC<DropdownProps> = ({ value = undefined, setValue, optionPropsCollection }) => {
 	const ref = useRef<HTMLDivElement>();
 	const { RenderMenu, isOpen, setIsOpen } = useMenu();
 
@@ -47,8 +43,7 @@ const Dropdown: FC<DropdownProps> = ({
 			>
 				<div className={styles["labelWrapper"]}>
 					<span className={styles["label"]}>
-						{optionPropsCollection.find((p) => p.value === value)?.label ??
-							"選択してください"}
+						{optionPropsCollection.find((p) => p.value === value)?.label ?? "選択してください"}
 					</span>
 				</div>
 				<div className={styles["iconWrapper"]}>
