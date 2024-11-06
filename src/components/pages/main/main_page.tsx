@@ -11,13 +11,13 @@ import styles from "./main_page.module.css";
  * メインページ
  */
 export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
-	const { RenderDropdown, value } = useDropdown("0"); //@@todo グラフの種類を定数にしておく
-	const { RenderCheckboxes, checkList } = useCheckboxes(prefectures.length);
+	const { RenderDropdown, value: chartType } = useDropdown("0"); //@@todo グラフの種類を定数にしておく
+	const { RenderCheckboxes, checkList: prefectureUseFlags } = useCheckboxes(prefectures.length);
 
 	return (
 		<MainTemplate>
 			<div className={styles["dropdownWrapper"]}>
-				<RenderDropdown value={value} optionPropsCollection={getChartOptions()} />
+				<RenderDropdown value={chartType} optionPropsCollection={getChartOptions()} />
 			</div>
 
 			<div className={styles["checkboxesWrapper"]}>
@@ -26,8 +26,8 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 
 			<div className={styles["chartWrapper"]}>
 				<ResasChart
-					chartType={value}
-					prefectureUseFlags={checkList}
+					chartType={chartType}
+					prefectureUseFlags={prefectureUseFlags}
 					prefectures={prefectures}
 					populationCompositionMap={populationCompositionMap}
 				/>
