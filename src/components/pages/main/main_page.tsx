@@ -24,7 +24,7 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 			}
 			const prefCode = String(prefectures[index].prefCode);
 			const prefName = prefectures[index].prefName;
-			const rd = populationCompositionMap[prefCode][Number(value) - 1];
+			const rd = populationCompositionMap[prefCode][Number(value)];
 
 			linePropsCollection.push({ dataKey: prefCode, name: prefName });
 			rd.data.forEach((d) => {
