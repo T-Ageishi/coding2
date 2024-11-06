@@ -14,9 +14,10 @@ export const ResasChart: FC<ResasChartProps> = ({
 	prefectures,
 	populationCompositionMap,
 }) => {
+	//@@todo リファクタリング
 	const linePropsCollection: Array<LineProps> = [];
 	const chartDataCollection: Array<ChartData> = [];
-	if (chartType !== undefined && prefectureUseFlags.filter((v) => v).length > 0) {
+	if (prefectureUseFlags.filter((v) => v).length > 0) {
 		prefectureUseFlags.forEach((isChecked, index) => {
 			if (!isChecked) {
 				return;
