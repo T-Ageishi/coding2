@@ -4,14 +4,14 @@ import { FC } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";
 import { CheckboxProps, useCheckboxes } from "../../molecules/checkboxes/checkboxes";
 import { ResasChart } from "../../molecules/resas_chart/resas_chart";
-import { getChartOptions } from "../../../lib/resas";
+import { CHART_TYPE_ALL, getChartOptions } from "../../../lib/resas";
 import styles from "./main_page.module.css";
 
 /**
  * メインページ
  */
 export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
-	const { RenderDropdown, value: chartType } = useDropdown("0"); //@@todo グラフの種類を定数にしておく
+	const { RenderDropdown, value: chartType } = useDropdown(CHART_TYPE_ALL);
 	const { RenderCheckboxes, checkList: prefectureUseFlags } = useCheckboxes(prefectures.length);
 
 	return (
