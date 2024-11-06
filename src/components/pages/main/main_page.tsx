@@ -3,7 +3,7 @@ import { MainTemplate } from "../../templates/main/main_template";
 import { FC } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";
 import { CheckboxProps, useCheckboxes } from "../../molecules/checkboxes/checkboxes";
-import { ChartData, LineProps, ResasChart } from "../../molecules/resas_chart/resas_chart";
+import { ResasChart } from "../../molecules/resas_chart/resas_chart";
 import { getChartOptions } from "../../../lib/resas";
 import styles from "./main_page.module.css";
 
@@ -13,41 +13,6 @@ import styles from "./main_page.module.css";
 export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
 	const { RenderDropdown, value } = useDropdown();
 	const { RenderCheckboxes, checkList } = useCheckboxes(prefectures.length);
-
-	//@@todo 処理を切り出す
-	const linePropsCollection: Array<LineProps> = [];
-	const chartDataCollection: Array<ChartData> = [];
-	if (value !== undefined && checkList.filter((v) => v).length > 0) {
-		checkList.forEach((isChecked, index) => {
-			if (!isChecked) {
-				return;
-			}
-			const prefCode = String(prefectures[index].prefCode);
-			const prefName = prefectures[index].prefName;
-			const rd = populationCompositionMap[prefCode][Number(value)];
-
-			linePropsCollection.push({ dataKey: prefCode, name: prefName });
-			rd.data.forEach((d) => {
-				const { year, value } = d;
-
-				let ok = false;
-				chartDataCollection.forEach((chartData) => {
-					if (chartData.year != year) {
-						return;
-					}
-					ok = true;
-					chartData[prefCode] = value;
-				});
-
-				if (!ok) {
-					chartDataCollection.push({
-						year: year,
-						[prefCode]: value,
-					});
-				}
-			});
-		});
-	}
 
 	return (
 		<MainTemplate>
@@ -61,8 +26,10 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 
 			<div className={styles["chartWrapper"]}>
 				<ResasChart
-					linePropsCollection={linePropsCollection}
-					chartDataCollection={chartDataCollection}
+					chartType={value}
+					prefectureUseFlags={checkList}
+					prefectures={prefectures}
+					populationCompositionMap={populationCompositionMap}
 				/>
 			</div>
 		</MainTemplate>
