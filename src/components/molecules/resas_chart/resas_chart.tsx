@@ -14,39 +14,32 @@ export const ResasChart: FC<ResasChartProps> = ({
 	prefectures,
 	populationCompositionMap,
 }) => {
-	//@@todo リファクタリング
 	const linePropsCollection: Array<LineProps> = [];
 	const chartDataCollection: Array<ChartData> = [];
 	prefectureUseFlags.forEach((isChecked, index) => {
 		if (!isChecked) {
 			return;
 		}
+
+		//一つ目の都道府県か
+		const isFirst = chartDataCollection.length === 0;
 		const prefCode = String(prefectures[index].prefCode);
 		const prefName = prefectures[index].prefName;
 		const populationComposition = populationCompositionMap[prefCode][Number(chartType)]["data"];
 
-		linePropsCollection.push({
-			dataKey: prefCode,
-			name: prefName,
-		});
+		linePropsCollection.push({ dataKey: prefCode, name: prefName });
 
-		populationComposition.forEach((p) => {
-			const { year, value } = p;
+		populationComposition.forEach((annualData) => {
+			const { year, value } = annualData;
 
-			let ok = false;
-			chartDataCollection.forEach((chartData) => {
-				if (chartData.year != year) {
-					return;
-				}
-				ok = true;
-				chartData[prefCode] = value;
-			});
+			if (isFirst) {
+				chartDataCollection.push({ year, [prefCode]: value });
+				return;
+			}
 
-			if (!ok) {
-				chartDataCollection.push({
-					year: year,
-					[prefCode]: value,
-				});
+			const chartDataIndex = chartDataCollection.findIndex((chartData) => chartData.year === year);
+			if (chartDataIndex !== -1) {
+				chartDataCollection[chartDataIndex][prefCode] = value;
 			}
 		});
 	});
