@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ResasChart } from "./resas_chart";
+import { CHART_TYPE_ALL } from "../../../lib/resas/const";
 
 const meta: Meta<typeof ResasChart> = {
 	component: ResasChart,
@@ -24,37 +25,44 @@ export const Default: Story = {
 		},
 	],
 	args: {
-		chartDataCollection: makeChartDataCollection(),
-		linePropsCollection: makeLinePropsCollection(),
+		chartType: CHART_TYPE_ALL,
+		prefectureUseFlags: makePrefectureUseFlags(),
+		prefectures: makePrefectures(),
+		populationCompositionMap: makePopulationCompositionMap(),
 	},
 };
 
 /**
  * グラフ描画用のサンプルデータ
  */
-function makeChartDataCollection() {
-	return [
-		{
-			year: 2000,
-			1: 4000,
-			47: 2400,
-		},
-		{
-			year: 2001,
-			1: 3000,
-			47: 1398,
-		},
-		{
-			year: 2002,
-			1: 2000,
-			47: 9800,
-		},
-	];
+function makePrefectureUseFlags() {
+	return [true];
 }
 
-function makeLinePropsCollection() {
-	return [
-		{ dataKey: "1", name: "北海道" },
-		{ dataKey: "47", name: "沖縄" },
-	];
+function makePopulationCompositionMap() {
+	return {
+		"1": [
+			{
+				label: "総人口",
+				data: [
+					{
+						year: 2000,
+						value: 1000,
+					},
+					{
+						year: 2001,
+						value: 3000,
+					},
+					{
+						year: 2002,
+						value: 1500,
+					},
+				],
+			},
+		],
+	};
+}
+
+function makePrefectures() {
+	return [{ prefCode: "1", prefName: "北海道" }];
 }
