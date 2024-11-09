@@ -1,0 +1,18 @@
+.container {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: block;
+    width: 56px;
+    height: 56px;
+    padding: 16px;
+    cursor: pointer;
+    transition-duration: 100ms;
+    border-radius: 16px;
+    background-color: var(--md-sys-color-primary-container);
+    box-shadow: 0 0 4px 0 var(--md-sys-color-shadow);
+}
+
+.container:hover {
+    box-shadow: 0 0 8px 0 var(--md-sys-color-shadow);
+}
