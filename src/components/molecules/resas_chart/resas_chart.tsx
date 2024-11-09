@@ -23,7 +23,7 @@ export const ResasChart: FC<ResasChartProps> = ({
 
 		//一つ目の都道府県か
 		const isFirst = chartDataCollection.length === 0;
-		const prefCode = String(prefectures[index].prefCode);
+		const prefCode = prefectures[index].prefCode;
 		const prefName = prefectures[index].prefName;
 		const populationComposition = populationCompositionMap[prefCode][Number(chartType)]["data"];
 
