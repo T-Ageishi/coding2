@@ -4,9 +4,9 @@ import styles from "./fab.module.css";
 /**
  * Floating Action Button
  */
-export const FAB: FC<FABProps> = ({ onClick, children }) => {
+export const FAB: FC<FABProps> = ({ className, onClick, children }) => {
 	return (
-		<button className={styles["container"]} onClick={onClick}>
+		<button className={`${styles["container"]} ${className}`} onClick={onClick}>
 			{children}
 		</button>
 	);

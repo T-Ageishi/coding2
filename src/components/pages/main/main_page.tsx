@@ -6,6 +6,8 @@ import { CheckboxProps, useCheckboxes } from "../../molecules/checkboxes/checkbo
 import { ResasChart } from "../../molecules/resas_chart/resas_chart";
 import { CHART_TYPE_ALL, getChartOptions } from "../../../lib/resas";
 import styles from "./main_page.module.css";
+import { FAB } from "../../atoms/fab/fab";
+import { Icon } from "../../atoms/icon/icon";
 
 /**
  * メインページ
@@ -30,14 +32,19 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 				</div>
 			}
 		>
-			<div className={styles["chartWrapper"]}>
-				<ResasChart
-					chartType={chartType}
-					prefectureUseFlags={prefectureUseFlags}
-					prefectures={prefectures}
-					populationCompositionMap={populationCompositionMap}
-				/>
-			</div>
+			<>
+				<div className={styles["chartWrapper"]}>
+					<ResasChart
+						chartType={chartType}
+						prefectureUseFlags={prefectureUseFlags}
+						prefectures={prefectures}
+						populationCompositionMap={populationCompositionMap}
+					/>
+				</div>
+				<FAB className={styles["fab"]}>
+					<Icon icon={"tune"} />
+				</FAB>
+			</>
 		</MainTemplate>
 	);
 };
