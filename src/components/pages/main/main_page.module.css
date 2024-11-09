@@ -19,5 +19,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    /* @@todo 高さ調整 */
+    height: 500px;
     min-height: 500px;
 }
