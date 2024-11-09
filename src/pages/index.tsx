@@ -11,16 +11,8 @@ import { wait } from "../lib/wait";
 /**
  * メインページ
  */
-export default function Main({
-	prefectures,
-	populationCompositionMap,
-}: MainPageProps) {
-	return (
-		<MainPage
-			prefectures={prefectures}
-			populationCompositionMap={populationCompositionMap}
-		/>
-	);
+export default function Main({ prefectures, populationCompositionMap }: MainPageProps) {
+	return <MainPage prefectures={prefectures} populationCompositionMap={populationCompositionMap} />;
 }
 
 export const getStaticProps = (async () => {

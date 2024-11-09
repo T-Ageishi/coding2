@@ -6,9 +6,7 @@ import styles from "./checkboxes.module.css";
  * Render hooks
  */
 export const useCheckboxes = (numberOfCheckboxes: number) => {
-	const [checkList, setCheckList] = useState<CheckList>(
-		[...Array(numberOfCheckboxes)].fill(false)
-	);
+	const [checkList, setCheckList] = useState<CheckList>([...Array(numberOfCheckboxes)].fill(false));
 
 	const RenderCheckboxes: FC<CheckboxesProps> = ({ propsCollection }) => {
 		return (

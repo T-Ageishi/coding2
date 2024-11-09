@@ -27,12 +27,7 @@ const DropdownWithHooks = () => {
 		},
 	];
 
-	return (
-		<RenderDropdown
-			optionPropsCollection={optionPropsCollection}
-			value={value}
-		/>
-	);
+	return <RenderDropdown optionPropsCollection={optionPropsCollection} value={value} />;
 };
 
 export const Default: StoryWithHooks = {

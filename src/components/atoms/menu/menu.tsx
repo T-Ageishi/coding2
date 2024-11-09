@@ -25,12 +25,7 @@ export const useMenu = () => {
 /**
  * メニュー
  */
-const Menu: FC<MenuProps> = ({
-	anchorElement,
-	isOpen,
-	setIsOpen,
-	children,
-}) => {
+const Menu: FC<MenuProps> = ({ anchorElement, isOpen, setIsOpen, children }) => {
 	const ref = useRef<HTMLDivElement>(null);
 
 	//表示位置を調整
@@ -59,10 +54,7 @@ const Menu: FC<MenuProps> = ({
 	}, []);
 
 	return (
-		<div
-			ref={ref}
-			className={`${styles["container"]} ${isOpen ? styles["open"] : ""}`}
-		>
+		<div ref={ref} className={`${styles["container"]} ${isOpen ? styles["open"] : ""}`}>
 			{children}
 		</div>
 	);

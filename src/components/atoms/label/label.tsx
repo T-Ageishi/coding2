@@ -17,8 +17,6 @@ export default function Label({ label, children }: LabelProps) {
 /**
  * props型定義
  */
-export type LabelProps = PropsWithChildren<
-	ComponentPropsWithoutRef<"label">
-> & {
+export type LabelProps = PropsWithChildren<ComponentPropsWithoutRef<"label">> & {
 	label: string;
 };

@@ -10,6 +10,7 @@
     background-color: var(--md-sys-color-surface-container-lowest);
     box-shadow: 0 0 4px 0 var(--md-sys-color-shadow);
     animation-fill-mode: forwards;
+
     &.open {
         animation-name: open;
     }
