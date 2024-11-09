@@ -6,6 +6,7 @@
     cursor: pointer;
     border-radius: 4px;
     outline: solid 1px var(--md-sys-color-outline);
+    background-color: var(--md-sys-color-surface-container-lowest);
 
     &.open {
         .icon {
@@ -29,7 +30,10 @@
 }
 
 .icon {
-    animation-duration: 100ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 100ms;
 }
 
 /* 選択肢 */

@@ -10,6 +10,7 @@ import {
 import { useMenu } from "../../atoms/menu/menu";
 import { createPortal } from "react-dom";
 import styles from "./dropdown.module.css";
+import { Icon } from "../../atoms/icon/icon";
 
 export const useDropdown = (defaultValue: string | undefined = undefined) => {
 	const [value, setValue] = useState<string | undefined>(defaultValue);
@@ -47,7 +48,9 @@ const Dropdown: FC<DropdownProps> = ({ value = undefined, setValue, optionPropsC
 					</span>
 				</div>
 				<div className={styles["iconWrapper"]}>
-					<div className={`${styles["icon"]}`}>▼</div>
+					<div className={`${styles["icon"]}`}>
+						<Icon icon={"arrow_drop_down"} />
+					</div>
 				</div>
 			</div>
 
