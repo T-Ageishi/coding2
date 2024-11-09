@@ -68,12 +68,16 @@ export const ResasChartPresentation: FC<ResasChartPresentationProps> = ({
 				<Recharts.Tooltip />
 				<Recharts.Legend />
 				{linePropsCollection.map((p) => (
-					<Recharts.Line key={p.name} {...p} />
+					<Recharts.Line key={p.name} stroke={lineColors[p.dataKey % lineColors.length]} {...p} />
 				))}
 			</Recharts.LineChart>
 		</Recharts.ResponsiveContainer>
 	);
 };
+// endregion
+
+// region 定数
+const lineColors = ["#FF4B00", "#005AFF", "#03AF7A", "#4DC4FF", "#F6AA00", "#FFF100"];
 // endregion
 
 // region 型定義
