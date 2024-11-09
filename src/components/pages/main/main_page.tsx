@@ -34,12 +34,16 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 				</div>
 			</SideMenu>
 			<div className={styles["chartWrapper"]}>
-				<ResasChart
-					chartType={chartType}
-					prefectureUseFlags={prefectureUseFlags}
-					prefectures={prefectures}
-					populationCompositionMap={populationCompositionMap}
-				/>
+				{prefectureUseFlags.filter((flag) => flag).length > 0 ? (
+					<ResasChart
+						chartType={chartType}
+						prefectureUseFlags={prefectureUseFlags}
+						prefectures={prefectures}
+						populationCompositionMap={populationCompositionMap}
+					/>
+				) : (
+					"都道府県を選択してください。"
+				)}
 			</div>
 			<FAB className={styles["fab"]} onClick={() => setIsSideMenuOpen(!isSideMenuOpen)}>
 				<Icon icon={"tune"} />
