@@ -61,7 +61,7 @@ export const ResasChartPresentation: FC<ResasChartPresentationProps> = ({
 }) => {
 	return (
 		<Recharts.ResponsiveContainer>
-			<Recharts.LineChart data={chartDataCollection}>
+			<Recharts.LineChart data={chartDataCollection} margin={{ left: 16 }}>
 				<Recharts.CartesianGrid />
 				<Recharts.XAxis dataKey={"year"} />
 				<Recharts.YAxis />
