@@ -1,3 +1,16 @@
 .input {
     cursor: pointer;
 }
+
+.groupLabel {
+    font-weight: bold;
+    color: var(--md-sys-color-on-surface);
+}
+
+.checkboxes {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    column-gap: 8px;
+}

@@ -1,3 +1,12 @@
+/* サイドメニューの中身のラッパー */
+.sideMenuContentWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px;
+    row-gap: 24px;
+}
+
 /* ドロップダウンのラッパー */
 .dropdownWrapper {
     width: 100%;
@@ -6,11 +15,9 @@
 /* チェックボックスのラッパー */
 .checkboxesWrapper {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
-    column-gap: 16px;
-    row-gap: 8px;
+    row-gap: 16px;
 }
 
 /* グラフのラッパー */

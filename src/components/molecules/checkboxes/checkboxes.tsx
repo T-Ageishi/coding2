@@ -8,21 +8,35 @@ import styles from "./checkboxes.module.css";
 export const useCheckboxes = (numberOfCheckboxes: number) => {
 	const [checkList, setCheckList] = useState<CheckList>([...Array(numberOfCheckboxes)].fill(false));
 
-	const RenderCheckboxes: FC<CheckboxesProps> = ({ propsCollection }) => {
+	//@@todo リファクタリング
+	const RenderCheckboxes: FC<CheckboxesProps> = ({ propsCollection, groups }) => {
+		const checkboxCollection = {};
+		propsCollection.forEach((props, index) => {
+			if (!checkboxCollection[props.groupKey]) {
+				checkboxCollection[props.groupKey] = [];
+			}
+			checkboxCollection[props.groupKey].push(
+				<Label key={props.value} label={props.label}>
+					<Checkbox
+						{...props}
+						checked={checkList[index] ?? false}
+						onChange={(e) => {
+							const newCheckList = [...checkList];
+							newCheckList[index] = e.currentTarget.checked;
+							setCheckList(newCheckList);
+						}}
+					/>
+				</Label>
+			);
+		});
+
 		return (
 			<>
-				{propsCollection.map((props, index) => (
-					<Label key={props.value} label={props.label}>
-						<Checkbox
-							{...props}
-							checked={checkList[index] ?? false}
-							onChange={(e) => {
-								const newCheckList = [...checkList];
-								newCheckList[index] = e.currentTarget.checked;
-								setCheckList(newCheckList);
-							}}
-						/>
-					</Label>
+				{Object.keys(checkboxCollection).map((groupKey) => (
+					<div>
+						<p className={styles["groupLabel"]}>{groups[groupKey]}</p>
+						<div className={styles["checkboxes"]}>{checkboxCollection[groupKey]}</div>
+					</div>
 				))}
 			</>
 		);
@@ -49,6 +63,9 @@ const Checkbox: FC<CheckboxProps> = (props) => {
  */
 export type CheckboxesProps = {
 	propsCollection: Array<CheckboxProps>;
+	groups: {
+		[groupKey: string]: string;
+	};
 };
 
 /**
@@ -58,6 +75,7 @@ export type CheckboxesProps = {
 export type CheckboxProps = Omit<ComponentPropsWithoutRef<"input">, "type"> & {
 	label: string;
 	value: string;
+	groupKey: string;
 };
 
 /**

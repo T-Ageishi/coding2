@@ -15,15 +15,21 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 	const { RenderCheckboxes, checkList: prefectureUseFlags } = useCheckboxes(prefectures.length);
 
 	return (
-		<MainTemplate>
-			<div className={styles["dropdownWrapper"]}>
-				<RenderDropdown value={chartType} optionPropsCollection={getChartOptions()} />
-			</div>
-
-			<div className={styles["checkboxesWrapper"]}>
-				<RenderCheckboxes propsCollection={makeCheckboxesProps(prefectures)} />
-			</div>
-
+		<MainTemplate
+			sideMenuContent={
+				<div className={styles["sideMenuContentWrapper"]}>
+					<div className={styles["dropdownWrapper"]}>
+						<RenderDropdown value={chartType} optionPropsCollection={getChartOptions()} />
+					</div>
+					<div className={styles["checkboxesWrapper"]}>
+						<RenderCheckboxes
+							propsCollection={makeCheckboxesProps(prefectures)}
+							groups={getCheckboxGroupSetting()}
+						/>
+					</div>
+				</div>
+			}
+		>
 			<div className={styles["chartWrapper"]}>
 				<ResasChart
 					chartType={chartType}
@@ -43,7 +49,62 @@ function makeCheckboxesProps(prefectures: Array<Prefecture>): Array<CheckboxProp
 	return prefectures.map((p) => ({
 		label: p.prefName,
 		value: String(p.prefCode),
+		groupKey: getGroupKey(p.prefCode),
 	}));
+}
+
+/**
+ * チェックボックスのまとまりの設定
+ */
+function getCheckboxGroupSetting() {
+	return {
+		"0": "北海道・東北",
+		"1": "関東",
+		"2": "北陸・甲信越",
+		"3": "東海",
+		"4": "関西",
+		"5": "中国",
+		"6": "四国",
+		"7": "九州・沖縄",
+	};
+}
+
+/**
+ * チェックボックスをまとめるキー
+ */
+function getGroupKey(prefCode: PrefCode) {
+	if (1 <= prefCode && prefCode <= 7) {
+		//北海道・東北
+		return "0";
+	}
+	if (8 <= prefCode && prefCode <= 14) {
+		//関東
+		return "1";
+	}
+	if (15 <= prefCode && prefCode <= 20) {
+		//北陸・甲信越
+		return "2";
+	}
+	if (21 <= prefCode && prefCode <= 24) {
+		//東海
+		return "3";
+	}
+	if (25 <= prefCode && prefCode <= 30) {
+		//関西
+		return "4";
+	}
+	if (31 <= prefCode && prefCode <= 35) {
+		//中国
+		return "5";
+	}
+	if (36 <= prefCode && prefCode <= 39) {
+		//四国
+		return "6";
+	}
+	if (40 <= prefCode && prefCode <= 47) {
+		//九州・沖縄
+		return "7";
+	}
 }
 
 /**

@@ -2,7 +2,7 @@
  * 都道府県コード
  * @@todo 型定義を調整する
  */
-export type PrefCode = number | string;
+export type PrefCode = number;
 
 /**
  * 都道府県データ
