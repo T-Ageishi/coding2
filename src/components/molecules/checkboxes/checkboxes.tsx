@@ -33,7 +33,7 @@ export const useCheckboxes = (numberOfCheckboxes: number) => {
 		return (
 			<>
 				{Object.keys(checkboxCollection).map((groupKey) => (
-					<div>
+					<div key={groupKey}>
 						<p className={styles["groupLabel"]}>{groups[groupKey]}</p>
 						<div className={styles["checkboxes"]}>{checkboxCollection[groupKey]}</div>
 					</div>
