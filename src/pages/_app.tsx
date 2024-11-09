@@ -5,7 +5,7 @@ const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
 	return (
-		<main className={notoSansJP.className}>
+		<main className={notoSansJP.className} style={{ height: "100%" }}>
 			<Component {...pageProps} />
 		</main>
 	);

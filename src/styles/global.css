@@ -1,6 +1,6 @@
 @import "../../node_modules/ress/dist/ress.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=tune");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 /*通常時のテーマ*/
 :root {
@@ -112,8 +112,18 @@ html {
     font-family: "Noto Sans JP", sans-serif;
     font-weight: 400;
     font-style: normal;
+    height: 100%;
     font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
+}
+
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+#__next {
+    height: 100%;
 }
 
 *, *::before, *::after {
