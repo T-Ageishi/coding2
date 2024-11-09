@@ -1,7 +1,4 @@
 .container {
-    position: fixed;
-    top: 0;
-    left: 0;
     display: block;
     overflow-y: auto;
     width: 280px;
@@ -13,6 +10,8 @@
     background-color: var(--md-sys-color-surface-container-high);
 }
 
-.container:hover {
-    box-shadow: 0 0 8px 0 var(--md-sys-color-shadow);
+@media screen and (max-width: 1200px) {
+    .container.closed {
+        width: 0;
+    }
 }

@@ -1,3 +1,8 @@
+/* サイドメニュー */
+.sideMenu {
+    flex-shrink: 0;
+}
+
 /* サイドメニューの中身のラッパー */
 .sideMenuContentWrapper {
     display: flex;
@@ -24,11 +29,11 @@
 .chartWrapper {
     display: flex;
     align-items: center;
+    flex-grow: 1;
     justify-content: center;
     width: 100%;
-    /* @@todo 高さ調整 */
-    height: 500px;
-    min-height: 500px;
+    height: 75%;
+    padding: 16px;
 }
 
 /* FAB */
@@ -37,7 +42,11 @@
 }
 
 /* メディアクエリ */
-@media (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
+    .chartWrapper {
+        flex-shrink: 0;
+    }
+
     .fab {
         display: block;
     }
