@@ -11,7 +11,15 @@
 }
 
 @media screen and (max-width: 1200px) {
+    .container {
+        position: fixed;
+        z-index: 5;
+        top: 0;
+        left: 0;
+        box-shadow: 0 0 4px 0 var(--md-sys-color-shadow);
+    }
+
     .container.closed {
-        width: 0;
+        left: -100%;
     }
 }
