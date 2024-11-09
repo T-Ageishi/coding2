@@ -1,0 +1,15 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 280px;
+    height: 100%;
+    transition-duration: 200ms;
+    border-radius: 0 16px 16px 0;
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+.container:hover {
+    box-shadow: 0 0 8px 0 var(--md-sys-color-shadow);
+}
