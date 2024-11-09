@@ -1,16 +1,15 @@
-import { readFile } from "node:fs/promises";
 import { Prefecture } from "./index.d";
 
 /**
  * 都道府県データを取得する
  */
 export async function fetchPrefectures(): Promise<Array<Prefecture>> {
-	//@@todo 実装
+	const response = await fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
+		method: "GET",
+		headers: [["X-API-KEY", process.env.RESAS_KEY ?? ""]],
+	});
 
-	//開発用
-	const data = JSON.parse(
-		await readFile("./src/test/mock_data/prefectures.json", "utf8")
-	);
+	const json = await response.json();
 
-	return data.result;
+	return json.result;
 }
