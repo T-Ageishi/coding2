@@ -9,17 +9,20 @@ export const useCheckboxes = (numberOfCheckboxes: number) => {
 	const [checkList, setCheckList] = useState<CheckList>([...Array(numberOfCheckboxes)].fill(false));
 
 	//チェックボックス
-	const RenderCheckboxes: FC<CheckboxesProps> = ({ propsCollection }) => {
+	const RenderCheckboxes: FC<CheckboxesProps & { offset?: number }> = ({
+		propsCollection,
+		offset = 0,
+	}) => {
 		return (
 			<>
 				{propsCollection.map((props, index) => (
 					<Label key={props.value} label={props.label}>
 						<Checkbox
 							{...props}
-							checked={checkList[index] ?? false}
+							checked={checkList[offset + index] ?? false}
 							onChange={(e) => {
 								const newCheckList = [...checkList];
-								newCheckList[index] = e.currentTarget.checked;
+								newCheckList[offset + index] = e.currentTarget.checked;
 								setCheckList(newCheckList);
 							}}
 						/>

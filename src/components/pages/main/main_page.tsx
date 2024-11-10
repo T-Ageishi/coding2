@@ -4,7 +4,12 @@ import { FC, useState } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";
 import { CheckboxProps, useCheckboxes } from "../../molecules/checkboxes/checkboxes";
 import { ResasChart } from "../../molecules/resas_chart/resas_chart";
-import { CHART_TYPE_ALL, getChartOptions } from "../../../lib/resas";
+import {
+	CHART_TYPE_ALL,
+	getChartOptions,
+	getCheckboxGroupSetting,
+	getCheckboxGroupingSettings,
+} from "../../../lib/resas";
 import styles from "./main_page.module.css";
 import { FAB } from "../../atoms/fab/fab";
 import { Icon } from "../../atoms/icon/icon";
@@ -24,6 +29,7 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 
 	const checkboxesPropsCollection = makeCheckboxesPropsCollection(prefectures);
 	const checkboxesGroupingSetting = getCheckboxGroupSetting();
+	let offset = 0;
 
 	return (
 		<MainTemplate>
@@ -33,14 +39,16 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 						<RenderDropdown value={chartType} optionPropsCollection={getChartOptions()} />
 					</div>
 					<div className={styles["checkboxesWrapper"]}>
-						{checkboxesPropsCollection.map((propsCollection, index) => (
-							<RenderGroup
-								key={checkboxesGroupingSetting[index]}
-								label={checkboxesGroupingSetting[index]}
-							>
-								<RenderCheckboxes propsCollection={propsCollection} />
-							</RenderGroup>
-						))}
+						{checkboxesPropsCollection.map((propsCollection, index) => {
+							const groupLabel = checkboxesGroupingSetting[index];
+							const curOffset = offset;
+							offset += propsCollection.length;
+							return (
+								<RenderGroup key={groupLabel} label={groupLabel}>
+									<RenderCheckboxes propsCollection={propsCollection} offset={curOffset} />
+								</RenderGroup>
+							);
+						})}
 					</div>
 				</div>
 			</SideMenu>
@@ -71,61 +79,16 @@ function makeCheckboxesPropsCollection(
 ): Array<Array<CheckboxProps>> {
 	const result: Array<Array<CheckboxProps>> = [];
 	prefectures.forEach((p) => {
-		const groupKey = getGroupKey(p.prefCode);
+		const groupKey = getCheckboxGroupingSettings(p.prefCode);
 		if (!result[groupKey]) {
 			result[groupKey] = [];
 		}
-		result[getGroupKey(p.prefCode)].push({
+		result[groupKey].push({
 			label: p.prefName,
 			value: String(p.prefCode),
 		});
 	});
 	return result;
-}
-
-/**
- * チェックボックスのまとまりの設定
- */
-function getCheckboxGroupSetting() {
-	return ["北海道・東北", "関東", "北陸・甲信越", "東海", "関西", "中国", "四国", "九州・沖縄"];
-}
-
-/**
- * チェックボックスをまとめるキー
- */
-function getGroupKey(prefCode: PrefCode) {
-	if (1 <= prefCode && prefCode <= 7) {
-		//北海道・東北
-		return 0;
-	}
-	if (8 <= prefCode && prefCode <= 14) {
-		//関東
-		return 1;
-	}
-	if (15 <= prefCode && prefCode <= 20) {
-		//北陸・甲信越
-		return 2;
-	}
-	if (21 <= prefCode && prefCode <= 24) {
-		//東海
-		return 3;
-	}
-	if (25 <= prefCode && prefCode <= 30) {
-		//関西
-		return 4;
-	}
-	if (31 <= prefCode && prefCode <= 35) {
-		//中国
-		return 5;
-	}
-	if (36 <= prefCode && prefCode <= 39) {
-		//四国
-		return 6;
-	}
-	if (40 <= prefCode && prefCode <= 47) {
-		//九州・沖縄
-		return 7;
-	}
 }
 
 /**
