@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useState, FC } from "react";
+import { ComponentPropsWithoutRef, useState, FC, ReactNode } from "react";
 import Label from "../../atoms/label/label";
 import styles from "./checkboxes.module.css";
 
@@ -8,42 +8,38 @@ import styles from "./checkboxes.module.css";
 export const useCheckboxes = (numberOfCheckboxes: number) => {
 	const [checkList, setCheckList] = useState<CheckList>([...Array(numberOfCheckboxes)].fill(false));
 
-	//@@todo リファクタリング
-	const RenderCheckboxes: FC<CheckboxesProps> = ({ propsCollection, groups }) => {
-		const checkboxCollection = {};
-		propsCollection.forEach((props, index) => {
-			if (!checkboxCollection[props.groupKey]) {
-				checkboxCollection[props.groupKey] = [];
-			}
-			checkboxCollection[props.groupKey].push(
-				<Label key={props.value} label={props.label}>
-					<Checkbox
-						label={props.label}
-						value={props.value}
-						checked={checkList[index] ?? false}
-						onChange={(e) => {
-							const newCheckList = [...checkList];
-							newCheckList[index] = e.currentTarget.checked;
-							setCheckList(newCheckList);
-						}}
-					/>
-				</Label>
-			);
-		});
-
+	//チェックボックス
+	const RenderCheckboxes: FC<CheckboxesProps> = ({ propsCollection }) => {
 		return (
 			<>
-				{Object.keys(checkboxCollection).map((groupKey) => (
-					<div key={groupKey}>
-						<p className={styles["groupLabel"]}>{groups[groupKey]}</p>
-						<div className={styles["checkboxes"]}>{checkboxCollection[groupKey]}</div>
-					</div>
+				{propsCollection.map((props, index) => (
+					<Label key={props.value} label={props.label}>
+						<Checkbox
+							{...props}
+							checked={checkList[index] ?? false}
+							onChange={(e) => {
+								const newCheckList = [...checkList];
+								newCheckList[index] = e.currentTarget.checked;
+								setCheckList(newCheckList);
+							}}
+						/>
+					</Label>
 				))}
 			</>
 		);
 	};
 
-	return { RenderCheckboxes, checkList };
+	//チェックボックスをグルーピングするコンポーネント
+	const RenderGroup: FC<{ children: ReactNode; label: string }> = ({ children, label }) => {
+		return (
+			<div>
+				<p className={styles["groupLabel"]}>{label}</p>
+				<div className={styles["checkboxes"]}>{children}</div>
+			</div>
+		);
+	};
+
+	return { RenderCheckboxes, RenderGroup, checkList };
 };
 
 // region コンポーネント
@@ -63,10 +59,7 @@ const Checkbox: FC<CheckboxProps> = (props) => {
  * チェックボックス 複数
  */
 export type CheckboxesProps = {
-	propsCollection: Array<CheckboxProps & { groupKey: string }>;
-	groups: {
-		[groupKey: string]: string;
-	};
+	propsCollection: Array<CheckboxProps>;
 };
 
 /**

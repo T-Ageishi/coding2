@@ -16,7 +16,14 @@ import { SideMenu } from "../../atoms/side_menu/side_menu";
 export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
 	const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 	const { RenderDropdown, value: chartType } = useDropdown(CHART_TYPE_ALL);
-	const { RenderCheckboxes, checkList: prefectureUseFlags } = useCheckboxes(prefectures.length);
+	const {
+		RenderCheckboxes,
+		RenderGroup,
+		checkList: prefectureUseFlags,
+	} = useCheckboxes(prefectures.length);
+
+	const checkboxesPropsCollection = makeCheckboxesPropsCollection(prefectures);
+	const checkboxesGroupingSetting = getCheckboxGroupSetting();
 
 	return (
 		<MainTemplate>
@@ -26,10 +33,14 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 						<RenderDropdown value={chartType} optionPropsCollection={getChartOptions()} />
 					</div>
 					<div className={styles["checkboxesWrapper"]}>
-						<RenderCheckboxes
-							propsCollection={makeCheckboxesProps(prefectures)}
-							groups={getCheckboxGroupSetting()}
-						/>
+						{checkboxesPropsCollection.map((propsCollection, index) => (
+							<RenderGroup
+								key={checkboxesGroupingSetting[index]}
+								label={checkboxesGroupingSetting[index]}
+							>
+								<RenderCheckboxes propsCollection={propsCollection} />
+							</RenderGroup>
+						))}
 					</div>
 				</div>
 			</SideMenu>
@@ -55,30 +66,28 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 /**
  * チェックボックスのpropsを作る
  */
-function makeCheckboxesProps(
+function makeCheckboxesPropsCollection(
 	prefectures: Array<Prefecture>
-): Array<CheckboxProps & { groupKey: string }> {
-	return prefectures.map((p) => ({
-		label: p.prefName,
-		value: String(p.prefCode),
-		groupKey: getGroupKey(p.prefCode),
-	}));
+): Array<Array<CheckboxProps>> {
+	const result: Array<Array<CheckboxProps>> = [];
+	prefectures.forEach((p) => {
+		const groupKey = getGroupKey(p.prefCode);
+		if (!result[groupKey]) {
+			result[groupKey] = [];
+		}
+		result[getGroupKey(p.prefCode)].push({
+			label: p.prefName,
+			value: String(p.prefCode),
+		});
+	});
+	return result;
 }
 
 /**
  * チェックボックスのまとまりの設定
  */
 function getCheckboxGroupSetting() {
-	return {
-		"0": "北海道・東北",
-		"1": "関東",
-		"2": "北陸・甲信越",
-		"3": "東海",
-		"4": "関西",
-		"5": "中国",
-		"6": "四国",
-		"7": "九州・沖縄",
-	};
+	return ["北海道・東北", "関東", "北陸・甲信越", "東海", "関西", "中国", "四国", "九州・沖縄"];
 }
 
 /**
@@ -87,35 +96,35 @@ function getCheckboxGroupSetting() {
 function getGroupKey(prefCode: PrefCode) {
 	if (1 <= prefCode && prefCode <= 7) {
 		//北海道・東北
-		return "0";
+		return 0;
 	}
 	if (8 <= prefCode && prefCode <= 14) {
 		//関東
-		return "1";
+		return 1;
 	}
 	if (15 <= prefCode && prefCode <= 20) {
 		//北陸・甲信越
-		return "2";
+		return 2;
 	}
 	if (21 <= prefCode && prefCode <= 24) {
 		//東海
-		return "3";
+		return 3;
 	}
 	if (25 <= prefCode && prefCode <= 30) {
 		//関西
-		return "4";
+		return 4;
 	}
 	if (31 <= prefCode && prefCode <= 35) {
 		//中国
-		return "5";
+		return 5;
 	}
 	if (36 <= prefCode && prefCode <= 39) {
 		//四国
-		return "6";
+		return 6;
 	}
 	if (40 <= prefCode && prefCode <= 47) {
 		//九州・沖縄
-		return "7";
+		return 7;
 	}
 }
 
