@@ -10,6 +10,11 @@
     background-color: var(--md-sys-color-surface-container-low);
 }
 
+/* FAB */
+.fab {
+    display: none;
+}
+
 @media screen and (max-width: 1200px) {
     .container {
         position: fixed;
@@ -21,5 +26,9 @@
 
     .container.closed {
         left: -100%;
+    }
+
+    .fab {
+        display: block;
     }
 }

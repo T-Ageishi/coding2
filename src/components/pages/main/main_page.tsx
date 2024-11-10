@@ -1,26 +1,22 @@
 import { PrefCode, Prefecture, PopulationComposition } from "../../../lib/resas/index.d";
 import { MainTemplate } from "../../templates/main/main_template";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useDropdown } from "../../molecules/dropdown/dropdown";
 import { PopulationCompositionChart } from "../../molecules/population_composition_chart/population_composition_chart";
 import { CHART_TYPE_ALL, getChartOptions } from "../../../lib/resas";
 import styles from "./main_page.module.css";
-import { FAB } from "../../atoms/fab/fab";
-import { Icon } from "../../atoms/icon/icon";
-import { SideMenu } from "../../atoms/side_menu/side_menu";
 import { usePrefectureCheckboxes } from "../../organisms/prefecture_checkboxes/prefecture_checkboxes";
 
 /**
  * メインページ
  */
 export const MainPage: FC<MainPageProps> = ({ prefectures, populationCompositionMap }) => {
-	const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 	const { RenderDropdown, value: chartType } = useDropdown(CHART_TYPE_ALL);
 	const { RenderPrefectureCheckboxes, prefectureUseFlags } = usePrefectureCheckboxes(prefectures);
 
 	return (
-		<MainTemplate>
-			<SideMenu className={`${styles["sideMenu"]}`} isOpen={isSideMenuOpen}>
+		<MainTemplate
+			sideMenuContent={
 				<div className={styles["sideMenuContentWrapper"]}>
 					<div className={styles["dropdownWrapper"]}>
 						<RenderDropdown value={chartType} optionPropsCollection={getChartOptions()} />
@@ -29,7 +25,8 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 						<RenderPrefectureCheckboxes />
 					</div>
 				</div>
-			</SideMenu>
+			}
+		>
 			<div className={styles["chartWrapper"]}>
 				<PopulationCompositionChart
 					chartType={chartType}
@@ -38,9 +35,6 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 					populationCompositionMap={populationCompositionMap}
 				/>
 			</div>
-			<FAB className={styles["fab"]} onClick={() => setIsSideMenuOpen(!isSideMenuOpen)}>
-				<Icon icon={"tune"} />
-			</FAB>
 		</MainTemplate>
 	);
 };

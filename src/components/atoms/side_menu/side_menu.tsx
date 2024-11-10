@@ -1,21 +1,32 @@
-import { ComponentPropsWithoutRef, FC } from "react";
+import { ComponentPropsWithoutRef, FC, useState } from "react";
 import styles from "./side_menu.module.css";
+import { Icon } from "../icon/icon";
+import { FAB } from "../fab/fab";
 
 /**
  * サイドメニュー
  */
-export const SideMenu: FC<SideMenuProps> = ({ isOpen = true, className, children }) => {
+export const SideMenu: FC<SideMenuProps> = ({ className, children }) => {
+	const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+
 	return (
-		<aside
-			className={`${styles["container"]} ${isOpen ? styles["open"] : styles["closed"]} ${className}`}
-		>
-			{children}
-		</aside>
+		<>
+			<aside
+				className={[
+					styles["container"],
+					isSideMenuOpen ? styles["open"] : styles["closed"],
+					className ?? "",
+				].join(" ")}
+			>
+				{children}
+			</aside>
+			<FAB className={styles["fab"]} onClick={() => setIsSideMenuOpen(!isSideMenuOpen)}>
+				<Icon icon={"tune"} />
+			</FAB>
+		</>
 	);
 };
 
 // region 型
-export type SideMenuProps = ComponentPropsWithoutRef<"aside"> & {
-	isOpen: boolean;
-};
+export type SideMenuProps = ComponentPropsWithoutRef<"aside">;
 // endregion
