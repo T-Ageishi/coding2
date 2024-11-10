@@ -18,7 +18,8 @@ export const useCheckboxes = (numberOfCheckboxes: number) => {
 			checkboxCollection[props.groupKey].push(
 				<Label key={props.value} label={props.label}>
 					<Checkbox
-						{...props}
+						label={props.label}
+						value={props.value}
 						checked={checkList[index] ?? false}
 						onChange={(e) => {
 							const newCheckList = [...checkList];
@@ -62,7 +63,7 @@ const Checkbox: FC<CheckboxProps> = (props) => {
  * チェックボックス 複数
  */
 export type CheckboxesProps = {
-	propsCollection: Array<CheckboxProps>;
+	propsCollection: Array<CheckboxProps & { groupKey: string }>;
 	groups: {
 		[groupKey: string]: string;
 	};
@@ -75,7 +76,6 @@ export type CheckboxesProps = {
 export type CheckboxProps = Omit<ComponentPropsWithoutRef<"input">, "type"> & {
 	label: string;
 	value: string;
-	groupKey: string;
 };
 
 /**
