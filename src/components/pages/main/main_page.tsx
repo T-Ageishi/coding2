@@ -55,7 +55,9 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 /**
  * チェックボックスのpropsを作る
  */
-function makeCheckboxesProps(prefectures: Array<Prefecture>): Array<CheckboxProps> {
+function makeCheckboxesProps(
+	prefectures: Array<Prefecture>
+): Array<CheckboxProps & { groupKey: string }> {
 	return prefectures.map((p) => ({
 		label: p.prefName,
 		value: String(p.prefCode),
