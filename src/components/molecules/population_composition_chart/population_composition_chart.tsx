@@ -71,9 +71,14 @@ export const PopulationCompositionChartPresentation: FC<
 					<Recharts.ResponsiveContainer>
 						<Recharts.LineChart data={chartDataCollection} margin={{ left: 16 }}>
 							<Recharts.CartesianGrid />
-							<Recharts.XAxis dataKey={"year"} />
-							<Recharts.YAxis />
-							<Recharts.Tooltip />
+							<Recharts.XAxis
+								dataKey={"year"}
+								tick={{ fill: "var(--md-sys-color-on-surface-variant)" }}
+							/>
+							<Recharts.YAxis tick={{ fill: "var(--md-sys-color-on-surface-variant)" }} />
+							<Recharts.Tooltip
+								contentStyle={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }}
+							/>
 							<Recharts.Legend />
 							{linePropsCollection.map((p) => (
 								<Recharts.Line
