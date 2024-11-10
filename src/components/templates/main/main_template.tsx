@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import styles from "./styles.module.css";
-import { SideMenu } from "../../atoms/side_menu/side_menu";
+import { SideMenu } from "../../molecules/side_menu/side_menu";
 
 /**
  * メインのテンプレート

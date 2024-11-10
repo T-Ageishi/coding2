@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, FC, useState } from "react";
 import styles from "./side_menu.module.css";
-import { Icon } from "../icon/icon";
-import { FAB } from "../fab/fab";
+import { Icon } from "../../atoms/icon/icon";
+import { FAB } from "../../atoms/fab/fab";
 
 /**
  * サイドメニュー
