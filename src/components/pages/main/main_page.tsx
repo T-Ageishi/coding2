@@ -42,7 +42,7 @@ export const MainPage: FC<MainPageProps> = ({ prefectures, populationComposition
 						populationCompositionMap={populationCompositionMap}
 					/>
 				) : (
-					"都道府県を選択してください。"
+					"都道府県を選択するとグラフを表示できます。"
 				)}
 			</div>
 			<FAB className={styles["fab"]} onClick={() => setIsSideMenuOpen(!isSideMenuOpen)}>
