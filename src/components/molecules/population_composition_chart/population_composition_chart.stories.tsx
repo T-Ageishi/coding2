@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { PopulationCompositionChart } from "./population_composition_chart";
+import { CHART_TYPE_ALL } from "../../../lib/resas/index";
+import { Prefecture } from "../../../lib/resas/index.d";
 
-import { ResasChart } from "./resas_chart";
-import { CHART_TYPE_ALL } from "../../../lib/resas/const";
-
-const meta: Meta<typeof ResasChart> = {
-	component: ResasChart,
+const meta: Meta<typeof PopulationCompositionChart> = {
+	component: PopulationCompositionChart,
 };
 
 export default meta;
-type Story = StoryObj<typeof ResasChart>;
+type Story = StoryObj<typeof PopulationCompositionChart>;
 
 export const Default: Story = {
 	decorators: [
@@ -63,6 +63,6 @@ function makePopulationCompositionMap() {
 	};
 }
 
-function makePrefectures() {
-	return [{ prefCode: "1", prefName: "北海道" }];
+function makePrefectures(): Array<Prefecture> {
+	return [{ prefCode: 1, prefName: "北海道" }];
 }
