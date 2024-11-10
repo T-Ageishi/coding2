@@ -4,6 +4,7 @@ import {
 	FC,
 	MouseEventHandler,
 	SetStateAction,
+	useEffect,
 	useRef,
 	useState,
 } from "react";
@@ -26,6 +27,11 @@ export const useDropdown = (defaultValue: string | undefined = undefined) => {
 const Dropdown: FC<DropdownProps> = ({ value = undefined, setValue, optionPropsCollection }) => {
 	const ref = useRef<HTMLDivElement>();
 	const { RenderMenu, isOpen, setIsOpen } = useMenu();
+	const [isClient, setIsClient] = useState(false);
+
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
 
 	const onClickDropdown: MouseEventHandler<HTMLDivElement> = (e) => {
 		e.stopPropagation();
@@ -54,24 +60,21 @@ const Dropdown: FC<DropdownProps> = ({ value = undefined, setValue, optionPropsC
 				</div>
 			</div>
 
-			{
-				//選択肢部分（document is not definedエラー回避）
-				typeof window !== "undefined"
-					? createPortal(
-							<RenderMenu anchorElement={ref.current}>
-								{optionPropsCollection.map((p) => (
-									<Option
-										key={p.value}
-										{...p}
-										onClick={onClickOption}
-										className={value === p.value ? styles["active"] : ""}
-									/>
-								))}
-							</RenderMenu>,
-							document.body
-						)
-					: null
-			}
+			{isClient
+				? createPortal(
+						<RenderMenu anchorElement={ref.current}>
+							{optionPropsCollection.map((p) => (
+								<Option
+									key={p.value}
+									{...p}
+									onClick={onClickOption}
+									className={value === p.value ? styles["active"] : ""}
+								/>
+							))}
+						</RenderMenu>,
+						document.body
+					)
+				: null}
 		</>
 	);
 };
