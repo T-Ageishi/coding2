@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: 2024 H2 MBO coding2
+
+Resources:
+  MyApp:
+    Type: AWS::Amplify::App
+    Properties:
+      Name: Mbo2024H2Coding2
+      Platform: WEB
+      Repository: '{{resolve:secretsmanager:mbo-github:SecretString:repository}}'
+      AccessToken: '{{resolve:secretsmanager:mbo-github:SecretString:access-token}}'
+      BasicAuthConfig:
+        EnableBasicAuth: true
+        Username: '{{resolve:secretsmanager:mbo-amplify-basic-auth:SecretString:username}}'
+        Password: '{{resolve:secretsmanager:mbo-amplify-basic-auth:SecretString:password}}'
+      EnvironmentVariables:
+        - Name: RESAS_KEY
+          Value: '{{resolve:secretsmanager:mbo-resas-key:SecretString:api-key}}'
+      BuildSpec: !Sub |
+        version: 1
+        frontend:
+          phases:
+            preBuild:
+              commands:
+                - npm ci --cache .npm --prefer-offline
+            build:
+              commands:
+                - npm run build
+          artifacts:
+            baseDirectory: out
+            files:
+              - '**/*'
+          cache:
+            paths:
+              - .next/cache/**/*
+              - .npm/**/*
+  MyAppBranch:
+    Type: AWS::Amplify::Branch
+    Properties:
+      AppId: !GetAtt MyApp.AppId
+      BranchName: main
+      EnableAutoBuild: true
